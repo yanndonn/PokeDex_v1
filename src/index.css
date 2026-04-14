@@ -1,3 +1,145 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Nunito:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* ── Global reset ─────────────────────────────────────── */
+body {
+  background-color: #1a1a2e;
+  color: #f0f0f0;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ── Pokédex screen scanline overlay ─────────────────── */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.08) 2px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* ── Pokéball spinner decoration ─────────────────────── */
+.pokeball {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #CC0000 50%, #ffffff 50%);
+  border: 4px solid #1a1a2e;
+  position: relative;
+  animation: spin 6s linear infinite;
+  box-shadow: 0 0 0 3px #CC0000, 0 0 16px rgba(204,0,0,0.5);
+}
+.pokeball::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-radius: 50%;
+  border: 3px solid #1a1a2e;
+  box-shadow: 0 0 0 2px #fff;
+  z-index: 1;
+}
+.pokeball::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: calc(50% - 2px);
+  width: 100%;
+  height: 4px;
+  background: #1a1a2e;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── LED indicator dots ───────────────────────────────── */
+.led {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.led-red    { background: #ff4444; box-shadow: 0 0 6px #ff4444; }
+.led-yellow { background: #FFDE00; box-shadow: 0 0 6px #FFDE00; }
+.led-green  { background: #44ff88; box-shadow: 0 0 6px #44ff88; }
+
+/* ── Coveo Atomic overrides ───────────────────────────── */
+atomic-search-box::part(wrapper) {
+  background: #16213e;
+  border: 2px solid #FFDE00;
+  border-radius: 8px;
+}
+atomic-search-box::part(input) {
+  background: transparent;
+  color: #f0f0f0;
+  font-family: 'Nunito', sans-serif;
+  font-size: 1rem;
+}
+atomic-search-box::part(clear-button),
+atomic-search-box::part(submit-button) {
+  color: #FFDE00;
+}
+atomic-query-summary::part(container) {
+  color: #aaaacc;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.85rem;
+}
+atomic-pager::part(page-button) {
+  background: #16213e;
+  color: #FFDE00;
+  border: 1px solid #0f3460;
+  border-radius: 4px;
+}
+atomic-pager::part(page-button-selected) {
+  background: #CC0000;
+  color: #fff;
+  border-color: #CC0000;
+}
+
+/* ── Search box dropdown suggestions ─────────────────── */
+atomic-search-box::part(suggestions-wrapper),
+atomic-search-box::part(suggestion-list) {
+  background: #16213e;
+  border: 1px solid #FFDE00;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+atomic-search-box::part(suggestion) {
+  color: #f0f0f0;
+  background: #16213e;
+  font-family: 'Nunito', sans-serif;
+}
+atomic-search-box::part(suggestion-highlight) {
+  color: #FFDE00;
+  font-weight: 700;
+}
+atomic-search-box::part(suggestion):hover,
+atomic-search-box::part(active-suggestion) {
+  background: #0f3460;
+  color: #FFDE00;
+}
+atomic-search-box::part(query) {
+  color: #f0f0f0;
+}
+atomic-search-box::part(suggestions-title) {
+  color: #aaaacc;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
